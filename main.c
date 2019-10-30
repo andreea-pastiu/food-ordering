@@ -19,9 +19,9 @@ int main() {
             {23, 22, 19, 21}
     };
 
-    int noOfDrinks = 4;
-    char drinks[5][10] = {"Coca-Cola","Fanta","Lipton", "Water", "No, thanks!"};
-    int drinksPrices[5] = {5, 5, 4, 0};
+    int noOfDrinks = 5;
+    char drinks[5][12] = {"Coca-Cola","Fanta","Lipton", "Water", "No, thanks!"};
+    int drinksPrices[5] = {5, 5, 5, 4, 0};
 
     int cutlery=0;
     char additionalInfo[200];
@@ -109,7 +109,7 @@ int main() {
             case 4: {
                 //Cutlery or not
                 printf("Do you want cutlery?\n");
-                printf("a) Yes/nb)No, thanks!\nc)Go back\n");
+                printf("a) Yes\nb) No, thanks!\nc) Go back\n");
                 choice = getchar();
                 getchar();
                 if(choice == 'c'){
@@ -119,10 +119,11 @@ int main() {
                 {
                     if(choice == 'a')
                         cutlery = 1;
-                    else
+                    if(choice == 'b')
                         cutlery = 0;
                     state++;
                 }
+                printf("AICI %d", choice);
                 break;
             }
             case 5: {
@@ -134,7 +135,26 @@ int main() {
             }
             case 6:{
                 // Print order
-
+                printf("This is your order:\n-------------------\n");
+                printf("Name: %s\n", username);
+                printf("Food items:\n");
+                printf("---%s: %d\n", foodTypes[foodChoice][typeChoice], foodPrices[foodChoice][typeChoice]);
+                if(drinkChoice == noOfDrinks - 1)
+                    printf("No drinks\n");
+                else
+                    printf("---%s: %d\n", drinks[drinkChoice], drinksPrices[drinkChoice]);
+                printf("Cutlery: %s\n", cutlery == 0 ? "no" : "yes");
+                printf("Additional info: %s\n", additionalInfo);
+                printf("Payment amount: %d\n", foodPrices[foodChoice][typeChoice] + drinksPrices[drinkChoice]);
+                printf("-------------------\na) Confirm order\nb) Go back\n");
+                choice = getchar();
+                getchar();
+                if(choice == 'a'){
+                    printf("Order confirmed! Thank you for buying from us, %s!\n", username);
+                    orderReady = 1;
+                }
+                else
+                    state = state - 2;
                 break;
             }
         }
