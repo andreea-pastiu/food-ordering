@@ -1,12 +1,13 @@
 #include <stdio.h>
 
 int main() {
-    printf("Welcome to Andreea's pancakes!\n");
+    printf("Welcome to Andreea's Pizzeria!\n");
 
-    //pancakes data
+    //food data
     int noOfFood = 3;
     char food[3][10] = {"Pizza","Pasta","Salad"};
-    int noFoodTypes[] = {3,2,4};
+
+    int noOfFoodTypes[] = {3,2,4};
     char foodTypes[3][4][20] = {
             {"Pizza Carbonara", "Pizza Diavolo", "Pizza Margherita"},
             {"Chicken alfredo", "Mac&cheese"},
@@ -19,8 +20,125 @@ int main() {
     };
 
     int noOfDrinks = 4;
-    char drinks[4][10] = {"Coca-Cola","Fanta","Lipton", "Water"};
-    int drinksPrices[4] = {5, 5, 4};
+    char drinks[5][10] = {"Coca-Cola","Fanta","Lipton", "Water", "No, thanks!"};
+    int drinksPrices[5] = {5, 5, 4, 0};
+
+    int cutlery=0;
+    char additionalInfo[200];
+
+    //user input
+    char username[20];
+    char password[20];
+    int choice, foodChoice, typeChoice, drinkChoice;
+
+    int state = 0;
+    int orderReady = 0;
+    while(!orderReady){
+        switch (state) {
+            case 0: {
+                // Input personal data
+                printf("Please sign in to continue!\n");
+                printf("---Username\n");
+                gets(username);
+                printf("---Password\n");
+                gets(password);
+                state++;
+                break;
+            }
+            case 1: {
+                // Choose food
+                printf("Please choose the food you feel like eating today:\n");
+                for(int i=0;i<noOfFood;i++) {
+                    putchar('a'+i);
+                    printf(") %s\n",food[i]);
+                }
+                printf("%c) Go back\n",'a'+noOfFood);
+
+                choice = getchar();
+                getchar();
+                if(choice == 'a'+noOfFood) {
+                    state--;
+                }
+                else
+                {
+                    foodChoice = choice - 'a';
+                    state++;
+                }
+                break;
+            }
+            case 2: {
+                // Choose the food type
+                printf("Please choose the type of %s\n", food[foodChoice]);
+                for(int i=0;i<noOfFoodTypes[foodChoice];i++) {
+                    putchar('a'+i);
+                    printf(") %s (%d)\n",foodTypes[foodChoice][i], foodPrices[foodChoice][i]);
+                }
+                printf("%c) Go back\n",'a'+noOfFoodTypes[foodChoice]);
+
+                choice = getchar();
+                getchar();
+                if(choice == 'a'+noOfFoodTypes[foodChoice]) {
+                    state--;
+                }
+                else {
+                    typeChoice = choice - 'a';
+                    state++;
+                }
+                break;
+            }
+            case 3: {
+                // Choose the drinks
+                printf("Please choose a drink to go with your %s\n", food[foodChoice]);
+                for(int i=0;i<noOfDrinks;i++) {
+                    putchar('a'+i);
+                    printf(") %s (%d)\n", drinks[i], drinksPrices[i]);
+                }
+                printf("%c) Go back\n",'a'+noOfDrinks);
+
+                choice = getchar();
+                getchar();
+                if(choice == 'a'+noOfDrinks) {
+                    state--;
+                }
+                else {
+                    drinkChoice = choice - 'a';
+                    state++;
+                }
+                break;
+            }
+            case 4: {
+                //Cutlery or not
+                printf("Do you want cutlery?\n");
+                printf("a) Yes/nb)No, thanks!\nc)Go back\n");
+                choice = getchar();
+                getchar();
+                if(choice == 'c'){
+                    state--;
+                }
+                else
+                {
+                    if(choice == 'a')
+                        cutlery = 1;
+                    else
+                        cutlery = 0;
+                    state++;
+                }
+                break;
+            }
+            case 5: {
+                //Additional info
+                printf("Any additional info? (ENTER for no comment)\n");
+                gets(additionalInfo);
+                state++;
+                break;
+            }
+            case 6:{
+                // Print order
+
+                break;
+            }
+        }
+    }
 
 
     return 0;
