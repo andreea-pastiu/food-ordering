@@ -123,7 +123,6 @@ int main() {
                         cutlery = 0;
                     state++;
                 }
-                printf("AICI %d", choice);
                 break;
             }
             case 5: {
@@ -144,7 +143,8 @@ int main() {
                 else
                     printf("---%s: %d\n", drinks[drinkChoice], drinksPrices[drinkChoice]);
                 printf("Cutlery: %s\n", cutlery == 0 ? "no" : "yes");
-                printf("Additional info: %s\n", additionalInfo);
+                if (strcmp(additionalInfo, "") != NULL)
+                    printf("Additional info: %s\n", additionalInfo);
                 printf("Payment amount: %d\n", foodPrices[foodChoice][typeChoice] + drinksPrices[drinkChoice]);
                 printf("-------------------\na) Confirm order\nb) Go back\n");
                 choice = getchar();
