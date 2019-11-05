@@ -1,5 +1,7 @@
 #include <stdio.h>
-
+#include "customer.h"
+#include "choices.h"
+#include "showOptions.h"
 
 #define MAX_FOOD_NAME 10
 #define MAX_FOOD_TYPES_NO 4
@@ -48,73 +50,26 @@ int main() {
         switch (state) {
             case 0: {
                 // Input personal data
-                printf("Please sign in to continue!\n");
-                printf("---Username\n");
-                gets(username);
-                printf("---Password\n");
-                gets(password);
-                state++;
+                readPersonalData(username, password, &state);
                 break;
             }
             case 1: {
                 // Choose food
-                printf("Please choose the food you feel like eating today:\n");
-                for(int i=0;i<noOfFood;i++) {
-                    putchar('a'+i);
-                    printf(") %s\n",food[i]);
-                }
-                printf("%c) Go back\n",'a'+noOfFood);
-
-                choice = getchar();
-                getchar();
-                if(choice == 'a'+noOfFood) {
-                    state--;
-                }
-                else
-                {
-                    foodChoice = choice - 'a';
-                    state++;
-                }
+                showFoodOptions(noOfFood, food);
+                foodChoice = getChoiceIndex(noOfFood, &state);
+                printf("AICI %d\n",foodChoice);
                 break;
             }
             case 2: {
                 // Choose the food type
-                printf("Please choose the type of %s\n", food[foodChoice]);
-                for(int i=0;i<noOfFoodTypes[foodChoice];i++) {
-                    putchar('a'+i);
-                    printf(") %s (%d)\n",foodTypes[foodChoice][i], foodPrices[foodChoice][i]);
-                }
-                printf("%c) Go back\n",'a'+noOfFoodTypes[foodChoice]);
-
-                choice = getchar();
-                getchar();
-                if(choice == 'a'+noOfFoodTypes[foodChoice]) {
-                    state--;
-                }
-                else {
-                    typeChoice = choice - 'a';
-                    state++;
-                }
+                showFoodTypesOptions(noOfFoodTypes, food, foodChoice, foodTypes, foodPrices);
+                typeChoice = getChoiceIndex(noOfFoodTypes[foodChoice], &state);
                 break;
             }
             case 3: {
                 // Choose the drinks
-                printf("Please choose a drink to go with your %s\n", food[foodChoice]);
-                for(int i=0;i<noOfDrinks;i++) {
-                    putchar('a'+i);
-                    printf(") %s (%d)\n", drinks[i], drinksPrices[i]);
-                }
-                printf("%c) Go back\n",'a'+noOfDrinks);
-
-                choice = getchar();
-                getchar();
-                if(choice == 'a'+noOfDrinks) {
-                    state--;
-                }
-                else {
-                    drinkChoice = choice - 'a';
-                    state++;
-                }
+                showDrinksOptions(noOfDrinks, food, foodChoice, drinks, drinksPrices);
+                drinkChoice = getChoiceIndex(noOfDrinks, &state);
                 break;
             }
             case 4: {
