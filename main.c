@@ -1,27 +1,34 @@
 #include <stdio.h>
 
+
+#define MAX_FOOD_NAME 10
+#define MAX_FOOD_TYPES_NO 4
+#define MAX_FOOD_TYPES_NAME 20
+#define MAX_DRINKS_NAME 12
+
+
 int main() {
     printf("Welcome to Andreea's Pizzeria!\n");
 
     //food data
     int noOfFood = 3;
-    char food[3][10] = {"Pizza","Pasta","Salad"};
+    char food[][MAX_FOOD_NAME] = {"Pizza","Pasta","Salad"};
 
     int noOfFoodTypes[] = {3,2,4};
-    char foodTypes[3][4][20] = {
+    char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME] = {
             {"Pizza Carbonara", "Pizza Diavolo", "Pizza Margherita"},
             {"Chicken alfredo", "Mac&cheese"},
             {"Tuna Salad", "Chicken Salad", "Greek Salad", "Cobb"}
     };
-    int foodPrices[3][4] = {
+    int foodPrices[][MAX_FOOD_TYPES_NO] = {
             {21, 23, 19},
             {23, 21},
             {23, 22, 19, 21}
     };
 
     int noOfDrinks = 5;
-    char drinks[5][12] = {"Coca-Cola","Fanta","Lipton", "Water", "No, thanks!"};
-    int drinksPrices[5] = {5, 5, 5, 4, 0};
+    char drinks[][MAX_DRINKS_NAME] = {"Coca-Cola","Fanta","Lipton", "Water", "No, thanks!"};
+    int drinksPrices[] = {5, 5, 5, 4, 0};
 
     int cutlery=0;
     char additionalInfo[200];
@@ -143,7 +150,7 @@ int main() {
                 else
                     printf("---%s: %d\n", drinks[drinkChoice], drinksPrices[drinkChoice]);
                 printf("Cutlery: %s\n", cutlery == 0 ? "no" : "yes");
-                if (strcmp(additionalInfo, "") != NULL)
+                if (additionalInfo[0] != NULL)
                     printf("Additional info: %s\n", additionalInfo);
                 printf("Payment amount: %d\n", foodPrices[foodChoice][typeChoice] + drinksPrices[drinkChoice]);
                 printf("-------------------\na) Confirm order\nb) Go back\n");
