@@ -2,6 +2,8 @@
 #include "customer.h"
 #include "choices.h"
 #include "showOptions.h"
+#include "additionalInfo.h"
+#include "order.h"
 
 #define MAX_FOOD_NAME 10
 #define MAX_FOOD_TYPES_NO 4
@@ -10,8 +12,6 @@
 #define MAX_ADDITIONAL_INFO 200
 #define MAX_USERNAME 20
 #define MAX_PASSWORD 20
-
-
 
 int main() {
     printf("Welcome to Andreea's Pizzeria!\n");
@@ -57,7 +57,6 @@ int main() {
                 // Choose food
                 showFoodOptions(noOfFood, food);
                 foodChoice = getChoiceIndex(noOfFood, &state);
-                printf("AICI %d\n",foodChoice);
                 break;
             }
             case 2: {
@@ -74,53 +73,22 @@ int main() {
             }
             case 4: {
                 //Cutlery or not
-                printf("Do you want cutlery?\n");
-                printf("a) Yes\nb) No, thanks!\nc) Go back\n");
-                choice = getchar();
-                getchar();
-                if(choice == 'c'){
-                    state--;
-                }
-                else
-                {
-                    if(choice == 'a')
-                        cutlery = 1;
-                    if(choice == 'b')
-                        cutlery = 0;
-                    state++;
-                }
+                showCutleryOptions(&cutlery, &state);
                 break;
             }
             case 5: {
                 //Additional info
-                printf("Any additional info? (ENTER for no comment)\n");
-                gets(additionalInfo);
-                state++;
+                getAdditionalInfo(additionalInfo, &state);
                 break;
             }
             case 6:{
                 // Print order
-                printf("This is your order:\n-------------------\n");
-                printf("Name: %s\n", username);
-                printf("Food items:\n");
-                printf("---%s: %d\n", foodTypes[foodChoice][typeChoice], foodPrices[foodChoice][typeChoice]);
-                if(drinkChoice == noOfDrinks - 1)
-                    printf("No drinks\n");
-                else
-                    printf("---%s: %d\n", drinks[drinkChoice], drinksPrices[drinkChoice]);
-                printf("Cutlery: %s\n", cutlery == 0 ? "no" : "yes");
-                if (additionalInfo[0] != NULL)
-                    printf("Additional info: %s\n", additionalInfo);
-                printf("Payment amount: %d\n", foodPrices[foodChoice][typeChoice] + drinksPrices[drinkChoice]);
-                printf("-------------------\na) Confirm order\nb) Go back\n");
-                choice = getchar();
-                getchar();
-                if(choice == 'a'){
-                    printf("Order confirmed! Thank you for buying from us, %s!\n", username);
-                    orderReady = 1;
-                }
-                else
-                    state = state - 2;
+                showCustomerData(username);
+                showFoodChosen(foodTypes, foodChoice, typeChoice, foodPrices);
+                showDrinksChosen(drinkChoice, noOfDrinks, drinks, drinksPrices);
+                showCutleryChosen(cutlery);
+                showAdditionalInfo(additionalInfo);
+                paymentConfirmation(foodPrices, foodChoice, typeChoice, drinksPrices, drinkChoice, username, &orderReady, &state);
                 break;
             }
         }

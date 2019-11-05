@@ -13,3 +13,9 @@ void readPersonalData(char username[], char password[], int *state)
     gets(password);
     (*state)++;
 }
+
+void showCustomerData(char username[])
+{
+    printf("This is your order:\n-------------------\n");
+    printf("Name: %s\n", username);
+}

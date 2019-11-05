@@ -18,7 +18,7 @@ void showFoodOptions(int noOfFood, char food[][MAX_FOOD_NAME])
     printf("%c) Go back\n",'a'+noOfFood);
 }
 
-void showFoodTypesOptions(int noOfFoodTypes[], char food[][MAX_FOOD_NAME], int foodChoice, char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME], char foodPrices[][MAX_FOOD_TYPES_NO])
+void showFoodTypesOptions(int noOfFoodTypes[], char food[][MAX_FOOD_NAME], int foodChoice, char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME], int foodPrices[][MAX_FOOD_TYPES_NO])
 {
     printf("Please choose the type of %s\n", food[foodChoice]);
     for(int i=0;i<noOfFoodTypes[foodChoice];i++) {
@@ -36,4 +36,24 @@ void showDrinksOptions(int noOfDrinks, char food[][MAX_FOOD_NAME], int foodChoic
         printf(") %s (%d)\n", drinks[i], drinksPrices[i]);
     }
     printf("%c) Go back\n",'a'+noOfDrinks);
+}
+
+void showCutleryOptions(int *cutlery, int *state)
+{
+    char choice;
+    printf("Do you want cutlery?\n");
+    printf("a) Yes\nb) No, thanks!\nc) Go back\n");
+    choice = getchar();
+    getchar();
+    if(choice == 'c'){
+        (*state)--;
+    }
+    else
+    {
+        if(choice == 'a')
+            *cutlery = 1;
+        if(choice == 'b')
+            *cutlery = 0;
+        (*state)++;
+    }
 }
