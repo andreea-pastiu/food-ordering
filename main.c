@@ -5,6 +5,10 @@
 #define MAX_FOOD_TYPES_NO 4
 #define MAX_FOOD_TYPES_NAME 20
 #define MAX_DRINKS_NAME 12
+#define MAX_ADDITIONAL_INFO 200
+#define MAX_USERNAME 20
+#define MAX_PASSWORD 20
+
 
 
 int main() {
@@ -31,11 +35,11 @@ int main() {
     int drinksPrices[] = {5, 5, 5, 4, 0};
 
     int cutlery=0;
-    char additionalInfo[200];
+    char additionalInfo[MAX_ADDITIONAL_INFO];
 
     //user input
-    char username[20];
-    char password[20];
+    char username[MAX_USERNAME];
+    char password[MAX_PASSWORD];
     int choice, foodChoice, typeChoice, drinkChoice;
 
     int state = 0;
