@@ -30,12 +30,12 @@ void chooseFood(int noOfFood, char food[][MAX_FOOD_NAME], int *foodChoice, int *
 
 void chooseFoodType(int noOfFoodTypes[], char food[][MAX_FOOD_NAME], int foodChoice, char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME], int foodPrices[][MAX_FOOD_TYPES_NO], int *typeChoice, int *state)
 {
-    showFoodTypesOptions(noOfFoodTypes, food, foodChoice, foodTypes, foodPrices);
+    showFoodTypesOptions(noOfFoodTypes[foodChoice], food[foodChoice], foodTypes[foodChoice], foodPrices[foodChoice]);
     (*typeChoice) = getChoiceIndex(noOfFoodTypes[foodChoice], state);
 }
 
 void chooseDrinks(int noOfDrinks, char food[][MAX_FOOD_NAME], int foodChoice, char drinks[][MAX_DRINKS_NAME], int drinksPrices[], int *drinkChoice, int *state)
 {
-    showDrinksOptions(noOfDrinks, food, foodChoice, drinks, drinksPrices);
+    showDrinksOptions(noOfDrinks, food[foodChoice], drinks, drinksPrices);
     (*drinkChoice) = getChoiceIndex(noOfDrinks, state);
 }

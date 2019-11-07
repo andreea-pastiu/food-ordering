@@ -10,18 +10,18 @@
 #define MAX_FOOD_TYPES_NAME 20
 #define MAX_DRINKS_NAME 12
 
-void showFoodChosen(char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME], int foodChoice, int typeChoice, int foodPrices[][MAX_FOOD_TYPES_NO])
+void showFoodChosen(char foodTypes[], int foodPrices)
 {
     printf("Food items:\n");
-    printf("---%s: %d\n", foodTypes[foodChoice][typeChoice], foodPrices[foodChoice][typeChoice]);
+    printf("---%s: %d\n", foodTypes, foodPrices);
 }
 
-void showDrinksChosen(int drinkChoice, int noOfDrinks, char drinks[][MAX_DRINKS_NAME], int drinksPrices[])
+void showDrinksChosen(int drinkChoice, int noOfDrinks, char drinks[], int drinksPrices)
 {
     if(drinkChoice == noOfDrinks - 1)
         printf("No drinks\n");
     else
-        printf("---%s: %d\n", drinks[drinkChoice], drinksPrices[drinkChoice]);
+        printf("---%s: %d\n", drinks, drinksPrices);
 }
 
 void showCutleryChosen(int cutlery)
@@ -29,11 +29,11 @@ void showCutleryChosen(int cutlery)
     printf("Cutlery: %s\n", cutlery == 0 ? "no" : "yes");
 }
 
-void paymentConfirmation(int foodPrices[][MAX_FOOD_TYPES_NO], int foodChoice, int typeChoice, int drinksPrices[], int drinkChoice, char username[], int *orderReady, int *state)
+void paymentConfirmation(int foodPrices, int drinksPrices, char username[], int *orderReady, int *state)
 {
     int totalToPay;
     char choice;
-    totalToPay = foodPrices[foodChoice][typeChoice] + drinksPrices[drinkChoice];
+    totalToPay = foodPrices + drinksPrices;
     printf("Payment amount: %d\n", totalToPay);
     printf("-------------------\na) Confirm order\nb) Go back\n");
     choice = getchar();
@@ -49,9 +49,9 @@ void paymentConfirmation(int foodPrices[][MAX_FOOD_TYPES_NO], int foodChoice, in
 void printOrder(char username[], char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME], int foodChoice, int typeChoice, int foodPrices[][MAX_FOOD_TYPES_NO], int drinkChoice, int noOfDrinks, char drinks[][MAX_DRINKS_NAME], int drinksPrices[], int cutlery, char additionalInfo[], int *orderReady, int *state)
 {
     showCustomerData(username);
-    showFoodChosen(foodTypes, foodChoice, typeChoice, foodPrices);
-    showDrinksChosen(drinkChoice, noOfDrinks, drinks, drinksPrices);
+    showFoodChosen(foodTypes[foodChoice][typeChoice], foodPrices[foodChoice][typeChoice]);
+    showDrinksChosen(drinkChoice, noOfDrinks, drinks[drinkChoice], drinksPrices[drinkChoice]);
     showCutleryChosen(cutlery);
     showAdditionalInfo(additionalInfo);
-    paymentConfirmation(foodPrices, foodChoice, typeChoice, drinksPrices, drinkChoice, username, orderReady, state);
+    paymentConfirmation(foodPrices[foodChoice][typeChoice], drinksPrices[drinkChoice], username, orderReady, state);
 }
