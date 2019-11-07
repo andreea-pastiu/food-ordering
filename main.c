@@ -4,7 +4,6 @@
 #include "showOptions.h"
 #include "additionalInfo.h"
 #include "order.h"
-
 #define MAX_FOOD_NAME 10
 #define MAX_FOOD_TYPES_NO 4
 #define MAX_FOOD_TYPES_NAME 20
@@ -12,14 +11,17 @@
 #define MAX_ADDITIONAL_INFO 200
 #define MAX_USERNAME 20
 #define MAX_PASSWORD 20
-
+#define INPUT_PERSONAL_DATA_STEP 0
+#define CHOOSE_FOOD_STEP 1
+#define CHOOSE_FOOD_TYPE_STEP 2
+#define CHOOSE_DRINKS_STEP 3
+#define CHOOSE_CUTLERY_STEP 4
+#define ADDITIONAL_INFO_STEP 5
+#define  PRINT_ORDER_STEP 6
 int main() {
     printf("Welcome to Andreea's Pizzeria!\n");
-
-    //food data
     int noOfFood = 3;
     char food[][MAX_FOOD_NAME] = {"Pizza","Pasta","Salad"};
-
     int noOfFoodTypes[] = {3,2,4};
     char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME] = {
             {"Pizza Carbonara", "Pizza Diavolo", "Pizza Margherita"},
@@ -31,69 +33,47 @@ int main() {
             {23, 21},
             {23, 22, 19, 21}
     };
-
     int noOfDrinks = 5;
     char drinks[][MAX_DRINKS_NAME] = {"Coca-Cola","Fanta","Lipton", "Water", "No, thanks!"};
     int drinksPrices[] = {5, 5, 5, 4, 0};
-
     int cutlery=0;
     char additionalInfo[MAX_ADDITIONAL_INFO];
-
-    //user input
     char username[MAX_USERNAME];
     char password[MAX_PASSWORD];
     int choice, foodChoice, typeChoice, drinkChoice;
-
-    int state = 0;
+    int state = INPUT_PERSONAL_DATA_STEP;
     int orderReady = 0;
     while(!orderReady){
         switch (state) {
-            case 0: {
-                // Input personal data
+            case INPUT_PERSONAL_DATA_STEP: {
                 readPersonalData(username, password, &state);
                 break;
             }
-            case 1: {
-                // Choose food
-                showFoodOptions(noOfFood, food);
-                foodChoice = getChoiceIndex(noOfFood, &state);
+            case CHOOSE_FOOD_STEP: {
+                chooseFood(noOfFood, food, &foodChoice, &state);
                 break;
             }
-            case 2: {
-                // Choose the food type
-                showFoodTypesOptions(noOfFoodTypes, food, foodChoice, foodTypes, foodPrices);
-                typeChoice = getChoiceIndex(noOfFoodTypes[foodChoice], &state);
+            case CHOOSE_FOOD_TYPE_STEP: {
+                chooseFoodType(noOfFoodTypes, food, foodChoice, foodTypes, foodPrices, &typeChoice, &state);
                 break;
             }
-            case 3: {
-                // Choose the drinks
-                showDrinksOptions(noOfDrinks, food, foodChoice, drinks, drinksPrices);
-                drinkChoice = getChoiceIndex(noOfDrinks, &state);
+            case CHOOSE_DRINKS_STEP: {
+                chooseDrinks(noOfDrinks, food, foodChoice, drinks, drinksPrices, &drinkChoice, &state);
                 break;
             }
-            case 4: {
-                //Cutlery or not
+            case CHOOSE_CUTLERY_STEP: {
                 showCutleryOptions(&cutlery, &state);
                 break;
             }
-            case 5: {
-                //Additional info
+            case ADDITIONAL_INFO_STEP: {
                 getAdditionalInfo(additionalInfo, &state);
                 break;
             }
-            case 6:{
-                // Print order
-                showCustomerData(username);
-                showFoodChosen(foodTypes, foodChoice, typeChoice, foodPrices);
-                showDrinksChosen(drinkChoice, noOfDrinks, drinks, drinksPrices);
-                showCutleryChosen(cutlery);
-                showAdditionalInfo(additionalInfo);
-                paymentConfirmation(foodPrices, foodChoice, typeChoice, drinksPrices, drinkChoice, username, &orderReady, &state);
+            case PRINT_ORDER_STEP:{
+                printOrder(username, foodTypes, foodChoice, typeChoice, foodPrices, drinkChoice, noOfDrinks, drinks, drinksPrices, cutlery, additionalInfo, &orderReady, &state);
                 break;
             }
         }
     }
-
-
     return 0;
 }

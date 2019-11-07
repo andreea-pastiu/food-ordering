@@ -3,8 +3,8 @@
 //
 
 #include <stdio.h>
-
-#include <stdio.h>
+#include "customer.h"
+#include "additionalInfo.h"
 #define MAX_FOOD_NAME 10
 #define MAX_FOOD_TYPES_NO 4
 #define MAX_FOOD_TYPES_NAME 20
@@ -44,4 +44,14 @@ void paymentConfirmation(int foodPrices[][MAX_FOOD_TYPES_NO], int foodChoice, in
     }
     else
         *state = (*state) - 2;
+}
+
+void printOrder(char username[], char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME], int foodChoice, int typeChoice, int foodPrices[][MAX_FOOD_TYPES_NO], int drinkChoice, int noOfDrinks, char drinks[][MAX_DRINKS_NAME], int drinksPrices[], int cutlery, char additionalInfo[], int *orderReady, int *state)
+{
+    showCustomerData(username);
+    showFoodChosen(foodTypes, foodChoice, typeChoice, foodPrices);
+    showDrinksChosen(drinkChoice, noOfDrinks, drinks, drinksPrices);
+    showCutleryChosen(cutlery);
+    showAdditionalInfo(additionalInfo);
+    paymentConfirmation(foodPrices, foodChoice, typeChoice, drinksPrices, drinkChoice, username, orderReady, state);
 }
