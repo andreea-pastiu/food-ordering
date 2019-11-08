@@ -34,27 +34,27 @@ int main() {
     char additionalInfo[MAX_ADDITIONAL_INFO], username[MAX_USERNAME], password[MAX_PASSWORD];
     while(!orderReady){
         switch (state) {
-            case INPUT_PERSONAL_DATA_STEP:
+            case INPUT_PERSONAL_DATA_STEP:{
                 readPersonalData(username, password, &state);
-                break;
-            case CHOOSE_FOOD_STEP:
+                break;}
+            case CHOOSE_FOOD_STEP:{
                 chooseFood(noOfFood, food, &foodChoice, &state);
-                break;
-            case CHOOSE_FOOD_TYPE_STEP:
+                break;}
+            case CHOOSE_FOOD_TYPE_STEP:{
                 chooseFoodType(noOfFoodTypes, food, foodChoice, foodTypes, foodPrices, &typeChoice, &state);
-                break;
-            case CHOOSE_DRINKS_STEP:
+                break;}
+            case CHOOSE_DRINKS_STEP:{
                 chooseDrinks(noOfDrinks, food, foodChoice, drinks, drinksPrices, &drinkChoice, &state);
-                break;
-            case CHOOSE_CUTLERY_STEP:
+                break;}
+            case CHOOSE_CUTLERY_STEP:{
                 showCutleryOptions(&cutlery, &state);
-                break;
-            case ADDITIONAL_INFO_STEP:
+                break;}
+            case ADDITIONAL_INFO_STEP:{
                 getAdditionalInfo(additionalInfo, &state);
-                break;
-            case PRINT_ORDER_STEP:
+                break;}
+            case PRINT_ORDER_STEP:{
                 printOrder(username, foodTypes, foodChoice, typeChoice, foodPrices, drinkChoice, noOfDrinks, drinks, drinksPrices, cutlery, additionalInfo, &orderReady, &state);
-                break;
+                break;}
         }
     }
     return 0;}

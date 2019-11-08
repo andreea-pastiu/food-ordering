@@ -28,7 +28,7 @@ void showFoodTypesOptions(int noOfFoodTypes, char food[], char foodTypes[][MAX_F
     printf("%c) Go back\n",'a'+noOfFoodTypes);
 }
 
-void showDrinksOptions(int noOfDrinks, char food[], char drinks[MAX_DRINKS_NAME], int drinksPrices[])
+void showDrinksOptions(int noOfDrinks, char food[], char drinks[][MAX_DRINKS_NAME], int drinksPrices[])
 {
     printf("Please choose a drink to go with your %s\n", food);
     for(int i=0;i<noOfDrinks;i++) {
