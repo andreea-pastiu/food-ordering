@@ -10,13 +10,13 @@
 #define MAX_FOOD_TYPES_NAME 20
 #define MAX_DRINKS_NAME 12
 
-void showFoodChosen(char foodTypes[], int foodPrices)
+void showFoodChosen(char* foodTypes, double foodPrices)
 {
     printf("Food items:\n");
-    printf("---%s: %d\n", foodTypes, foodPrices);
+    printf("---%s: %.2lf\n", foodTypes, foodPrices);
 }
 
-void showDrinksChosen(int drinkChoice, int noOfDrinks, char drinks[], int drinksPrices)
+void showDrinksChosen(int drinkChoice, int noOfDrinks, char* drinks, int drinksPrices)
 {
     if(drinkChoice == noOfDrinks - 1)
         printf("No drinks\n");
@@ -29,12 +29,12 @@ void showCutleryChosen(int cutlery)
     printf("Cutlery: %s\n", cutlery == 0 ? "no" : "yes");
 }
 
-void paymentConfirmation(int foodPrices, int drinksPrices, char username[], int *orderReady, int *state)
+void paymentConfirmation(double foodPrices, int drinksPrices, char username[], int *orderReady, int *state)
 {
-    int totalToPay;
+    double totalToPay;
     char choice;
     totalToPay = foodPrices + drinksPrices;
-    printf("Payment amount: %d\n", totalToPay);
+    printf("Payment amount: %.2lf\n", totalToPay);
     printf("-------------------\na) Confirm order\nb) Go back\n");
     choice = getchar();
     getchar();
@@ -46,7 +46,7 @@ void paymentConfirmation(int foodPrices, int drinksPrices, char username[], int 
         *state = (*state) - 2;
 }
 
-void printOrder(char username[], char foodTypes[][MAX_FOOD_TYPES_NO][MAX_FOOD_TYPES_NAME], int foodChoice, int typeChoice, int foodPrices[][MAX_FOOD_TYPES_NO], int drinkChoice, int noOfDrinks, char drinks[][MAX_DRINKS_NAME], int drinksPrices[], int cutlery, char additionalInfo[], int *orderReady, int *state)
+void printOrder(char username[], char*** foodTypes, int foodChoice, int typeChoice, double** foodPrices, int drinkChoice, int noOfDrinks, char** drinks, int* drinksPrices, int cutlery, char* additionalInfo, int *orderReady, int *state)
 {
     showCustomerData(username);
     showFoodChosen(foodTypes[foodChoice][typeChoice], foodPrices[foodChoice][typeChoice]);

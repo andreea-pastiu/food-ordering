@@ -17,7 +17,7 @@ int main() {
     char **drinks;
     char additionalInfo[MAX_ADDITIONAL_INFO], username[MAX_USERNAME], password[MAX_PASSWORD];
 
-    loadData(&noOfFood, noOfFoodTypes, food, foodTypes, foodPrices, &noOfDrinks, drinks, drinksPrices);
+    loadData(&noOfFood, &noOfFoodTypes, &food, &foodTypes, &foodPrices, &noOfDrinks, &drinks, &drinksPrices);
     printf("Welcome to Andreea's Pizzeria!\n");
     while(!orderReady){
         switch (state) {
@@ -44,4 +44,24 @@ int main() {
                 break;}
         }
     }
+    for(int i=0; i< noOfFood; i++)
+    {
+        for(int j=0;j< noOfFoodTypes[i]; j++)
+        {
+            free(foodTypes[i][j]);
+        }
+        free(foodTypes[i]);
+        free(food[i]);
+        free(foodPrices[i]);
+    }
+    free(food);
+    free(foodTypes);
+    free(foodPrices);
+    free(noOfFoodTypes);
+    free(drinksPrices);
+    for(int i = 0; i< noOfDrinks; i++)
+    {
+        free(drinks[i]);
+    }
+    free(drinks);
     return 0;}
