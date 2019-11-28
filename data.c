@@ -9,10 +9,19 @@
 
 void loadData(int *noOfFood, int **noOfFoodTypes, char ***food, char ****foodTypes, double ***foodPrices, int *noOfDrinks, char ***drinks, int **drinksPrices)
 {
-    printf("%s\n", LOAD_DATA);
+    FILE *inputPtr = fopen("data.txt", "r");
     char line[MAX_LINE], *p, *q;
-    scanf("%s", line);
-    getchar();
+    if(inputPtr != NULL)
+    {
+        fscanf(inputPtr, "%s", line);
+        fgetc(inputPtr);
+    }
+    else
+    {
+        printf("%s\n", LOAD_DATA);
+        scanf("%s", line);
+        getchar();
+    }
     sscanf(line, "%d", noOfFood);
     *noOfFoodTypes = (int*) malloc(*noOfFood* sizeof(int));
     *food = (char**) malloc(*noOfFood * sizeof(char*));
@@ -20,7 +29,10 @@ void loadData(int *noOfFood, int **noOfFoodTypes, char ***food, char ****foodTyp
     *foodPrices = (double**) malloc(*noOfFood * sizeof(double*));
     for(int i=0; i < *noOfFood; i++)
     {
-        gets(line);
+        if(inputPtr != NULL)
+            fgets(line, 100, inputPtr);
+        else
+            gets(line);
         (*noOfFoodTypes)[i]= 0;
         p = strchr(line, '(');
         while(p)
@@ -50,12 +62,22 @@ void loadData(int *noOfFood, int **noOfFoodTypes, char ***food, char ****foodTyp
             j++;
         }
     }
-
-    scanf("%s", line);
-    getchar();
+    if(inputPtr != NULL)
+    {
+        fscanf(inputPtr, "%s", line);
+        fgetc(inputPtr);
+    }
+    else
+    {
+        scanf("%s", line);
+        getchar();
+    }
     sscanf(line, "%d", noOfDrinks);
     (*noOfDrinks)++;
-    gets(line);
+    if(inputPtr != NULL)
+        fgets(line, 100, inputPtr);
+    else
+        gets(line);
     *drinks = (char**) malloc(*noOfDrinks * sizeof(char*));
     *drinksPrices = (int*) malloc(*noOfDrinks * sizeof(int));
     p = strtok(line, "(");
@@ -73,4 +95,6 @@ void loadData(int *noOfFood, int **noOfFoodTypes, char ***food, char ****foodTyp
     }
     (*drinks)[(*noOfDrinks)-1] = "No, thanks!";
     (*drinksPrices)[(*noOfDrinks)-1] = 0;
+    if(inputPtr != NULL)
+        fclose(inputPtr);
 }
