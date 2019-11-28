@@ -18,6 +18,7 @@ int main() {
     char additionalInfo[MAX_ADDITIONAL_INFO], username[MAX_USERNAME], password[MAX_PASSWORD];
 
     loadData(&noOfFood, &noOfFoodTypes, &food, &foodTypes, &foodPrices, &noOfDrinks, &drinks, &drinksPrices);
+    saveData(noOfFood, noOfFoodTypes, food, foodTypes, foodPrices, noOfDrinks, drinks, drinksPrices);
     printf("Welcome to Andreea's Pizzeria!\n");
     while(!orderReady){
         switch (state) {

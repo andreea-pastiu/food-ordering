@@ -7,6 +7,35 @@
 #include <string.h>
 #include "constants.h"
 
+void saveData(int noOfFood, int *noOfFoodTypes, char **food, char ***foodTypes, double **foodPrices, int noOfDrinks, char **drinks, int *drinkPrices)
+{
+    FILE *outputPtr = fopen("data.txt", "w");
+    fprintf(outputPtr, "%d:\n", noOfFood);
+    for(int i= 0; i< noOfFood; i++)
+    {
+        fprintf(outputPtr, "%s: ", food[i]);
+        for(int j = 0; j< noOfFoodTypes[i]; j++)
+        {
+            fprintf(outputPtr, "(%s - %.2lf) ", foodTypes[i][j], foodPrices[i][j]);
+        }
+        fprintf(outputPtr, "\n");
+    }
+    fprintf(outputPtr, "%d:\n", noOfDrinks - 1);
+    for(int i= 0; i< noOfDrinks - 1; i++)
+    {
+        if(i != noOfDrinks - 2)
+        {
+            fprintf(outputPtr, "(%s - %.2lf), ", drinks[i], drinkPrices[i]);
+        }
+        else
+        {
+            fprintf(outputPtr, "(%s - %.2lf)\n", drinks[i], drinkPrices[i]);
+        }
+    }
+    if(outputPtr != NULL)
+        fclose(outputPtr);
+}
+
 void loadData(int *noOfFood, int **noOfFoodTypes, char ***food, char ****foodTypes, double ***foodPrices, int *noOfDrinks, char ***drinks, int **drinksPrices)
 {
     FILE *inputPtr = fopen("data.txt", "r");
