@@ -13,7 +13,7 @@ void saveData(int noOfFood, int *noOfFoodTypes, char **food, char ***foodTypes, 
     fprintf(outputPtr, "%d:\n", noOfFood);
     for(int i= 0; i< noOfFood; i++)
     {
-        fprintf(outputPtr, "%s: ", food[i]);
+        fprintf(outputPtr, "%s %d: ", food[i], noOfFoodTypes[i]);
         for(int j = 0; j< noOfFoodTypes[i]; j++)
         {
             fprintf(outputPtr, "(%s - %.2lf) ", foodTypes[i][j], foodPrices[i][j]);
@@ -62,19 +62,16 @@ void loadData(int *noOfFood, int **noOfFoodTypes, char ***food, char ****foodTyp
             fgets(line, 100, inputPtr);
         else
             gets(line);
-        (*noOfFoodTypes)[i]= 0;
-        p = strchr(line, '(');
-        while(p)
-        {
-            (*noOfFoodTypes)[i]++;
-            p = strchr(p+1, '(');
-        }
-        (*foodTypes)[i] = (char**) malloc((*noOfFoodTypes)[i] * sizeof(char*));
-        (*foodPrices)[i] = (double *) malloc((*noOfFoodTypes)[i] * sizeof(double));
         p = strchr(line, ':');
         (*food)[i] = (char*) malloc(MAX_FOOD_NAME * sizeof(char));
         strncpy((*food)[i], line, p - line);
         (*food)[i][p-line] = '\0';
+        q = strrchr((*food)[i], ' ');
+        sscanf(q, "%d", &(*noOfFoodTypes)[i]);
+        strncpy((*food)[i], line, q-(*food)[i]);
+        (*food)[i][q-(*food)[i]] = '\0';
+        (*foodTypes)[i] = (char**) malloc((*noOfFoodTypes)[i] * sizeof(char*));
+        (*foodPrices)[i] = (double *) malloc((*noOfFoodTypes)[i] * sizeof(double));
         p = p+2;
         p = strtok(p, "(");
         int j = 0;
