@@ -9,7 +9,7 @@
 #include "data.h"
 // am reusti sa citesc coca-cola, am facut si fara nr la foodtypes cu printscreenuri
 int main() {
-    int noOfFood = 3, *noOfFoodTypes, noOfDrinks = 5, cutlery=0, choice, foodChoice, typeChoice, drinkChoice, state = INPUT_PERSONAL_DATA_STEP, orderReady = 0;
+    int noOfFood, *noOfFoodTypes, noOfDrinks, cutlery=0, choice, foodChoice, typeChoice, drinkChoice, state = INPUT_PERSONAL_DATA_STEP, orderReady = 0;
     int *drinksPrices;
     char **food;
     char ***foodTypes;
