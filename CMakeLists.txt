@@ -3,4 +3,4 @@ project(food_ordering C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(food_ordering main.c customer.c customer.h choices.c choices.h showOptions.c showOptions.h additionalInfo.h additionalInfo.c order.c order.h constants.h data.c data.h)
+add_executable(food_ordering main.c choices.c choices.h order.c order.h constants.h data.c data.h food.h food.c drinks.h drinks.c user.h user.c finalOrder.h finalOrder.c)
