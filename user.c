@@ -139,7 +139,7 @@ void readUsernamesAndPasswords(int *encryptionKey, int *usersNumber,user **users
             password = strtok(NULL, ",");
             int length = 0;
             for (int j = 0; j < strlen(password); j++) {
-                if (password[j] != '&')
+                if (password[j] != '&' && password[j] !='\n')
                     length++;
             }
             char **encryptedPasswordHelper = (char **) malloc(*encryptionKey * sizeof(char *));
@@ -279,9 +279,9 @@ void readPersonalData(user *u, int *state)
             }
             saveUsernameAndPassword(u, encryptionKey, users);
             (*state)++;
+            getchar();
         }
     }
-    printf("done");
 }
 
 void showCustomerData(user u)
