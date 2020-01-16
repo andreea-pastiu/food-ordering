@@ -3,7 +3,9 @@
 //
 
 #include <stdio.h>
-#include "showOptions.h"
+#include "food.h"
+#include "finalOrder.h"
+#include "drinks.h"
 
 int getChoiceIndex(int noOfChoices, int *state)
 {
@@ -22,20 +24,20 @@ int getChoiceIndex(int noOfChoices, int *state)
     return choiceIndex;
 }
 
-void chooseFood(int noOfFood, char** food, int *foodChoice, int *state)
+void chooseFood(food f, finalOrder *fo, int *state)
 {
-    showFoodOptions(noOfFood, food);
-    (*foodChoice) = getChoiceIndex(noOfFood, state);
+    showFoodOptions(f);
+    (*fo).foodChoice = getChoiceIndex(f.noOfFood, state);
 }
 
-void chooseFoodType(int* noOfFoodTypes, char** food, int foodChoice, char*** foodTypes, double** foodPrices, int *typeChoice, int *state)
+void chooseFoodType(food f, finalOrder *fo, int *state)
 {
-    showFoodTypesOptions(noOfFoodTypes[foodChoice], food[foodChoice], foodTypes[foodChoice], foodPrices[foodChoice]);
-    (*typeChoice) = getChoiceIndex(noOfFoodTypes[foodChoice], state);
+    showFoodTypesOptions(f, (*fo).foodChoice);
+    (*fo).typeChoice = getChoiceIndex(f.noOfFoodTypes[(*fo).foodChoice], state);
 }
 
-void chooseDrinks(int noOfDrinks, char** food, int foodChoice, char** drinks, int* drinksPrices, int *drinkChoice, int *state)
+void chooseDrinks(drinks d, food f, finalOrder *fo, int *state)
 {
-    showDrinksOptions(noOfDrinks, food[foodChoice], drinks, drinksPrices);
-    (*drinkChoice) = getChoiceIndex(noOfDrinks, state);
+    showDrinksOptions(d, f.food[(*fo).foodChoice]);
+    (*fo).drinkChoice = getChoiceIndex(d.noOfDrinks, state);
 }
